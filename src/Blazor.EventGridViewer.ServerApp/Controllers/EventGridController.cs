@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Messaging.EventGrid;
+using Azure.Messaging.EventGrid.SystemEvents;
 using Blazor.EventGridViewer.Core.Models;
 using Blazor.EventGridViewer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.EventGrid;
-using Microsoft.Azure.EventGrid.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Blazor.EventGridViewer.ServerApp.Controllers
@@ -58,7 +58,7 @@ namespace Blazor.EventGridViewer.ServerApp.Controllers
                     foreach (EventGridEventModel model in eventGridEventModels)
                     {
                         // EventGrid validation message
-                        if (model.EventType == EventTypes.EventGridSubscriptionValidationEvent)
+                        if (model.EventType == SystemEventNames.EventGridSubscriptionValidation)
                         {
                             var eventData = ((JObject)(model.EventData)).ToObject<SubscriptionValidationEventData>();
                             var responseData = new SubscriptionValidationResponse()
