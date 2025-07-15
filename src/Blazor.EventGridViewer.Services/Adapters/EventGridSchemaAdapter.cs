@@ -1,10 +1,10 @@
 ﻿using Blazor.EventGridViewer.Core;
 using Blazor.EventGridViewer.Core.Models;
 using Blazor.EventGridViewer.Services.Interfaces;
-using Microsoft.Azure.EventGrid.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Azure.Messaging.EventGrid;
 
 namespace Blazor.EventGridViewer.Services.Adapters
 {
