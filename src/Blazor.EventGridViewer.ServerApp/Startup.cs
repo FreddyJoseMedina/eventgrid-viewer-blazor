@@ -6,13 +6,14 @@ using Microsoft.Extensions.Hosting;
 using BlazorStrap;
 using Blazor.EventGridViewer.Services.Interfaces;
 using Blazor.EventGridViewer.Services;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Blazor.EventGridViewer.Services.Adapters;
+using Microsoft.Azure.EventGrid.Models;
 using Blazor.EventGridViewer.Core.Models;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.Identity.Web;
 
 namespace Blazor.EventGridViewer.ServerApp
 {
@@ -32,8 +33,8 @@ namespace Blazor.EventGridViewer.ServerApp
             // Check to see if AzureAD Auth is enabled
             if (EnableAuth())
             {
-                services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                   .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
+                services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                   .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
                 services.AddControllersWithViews(options =>
                 {
